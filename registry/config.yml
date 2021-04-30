@@ -1,0 +1,41 @@
+version: 0.1
+
+auth:
+  silly:
+    realm: silly-realm
+    service: silly-service
+  token:
+    autoredirect: true
+    realm: token-realm
+    service: token-service
+    issuer: registry-token-issuer
+    rootcertbundle: /root/certs/bundle
+  htpasswd:
+    realm: basic-realm
+    path: /path/to/htpasswd
+
+http:
+  addr: 0.0.0.0:443
+  host: https://registry.allconfig.org:2443
+  secret: asecretforlocaldevelopment
+  relativeurls: false
+  draintimeout: 60s
+  tls:
+    certificate: /path/to/x509/public
+    key: /path/to/x509/private
+    clientcas:
+      - /path/to/ca.pem
+      - /path/to/another/ca.pem
+    letsencrypt:
+      cachefile: /path/to/cache-file
+      email: emailused@letsencrypt.com
+      hosts: [myregistryaddress.org]
+  debug:
+    addr: localhost:5001
+    prometheus:
+      enabled: true
+      path: /metrics
+  headers:
+    X-Content-Type-Options: [nosniff]
+  http2:
+    disabled: false
