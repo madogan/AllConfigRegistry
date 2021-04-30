@@ -1,0 +1,22 @@
+services:
+  allconfig-registry:
+    image: registry:2
+    ports:
+      - "443:443"
+    restart: always
+    environment:
+      - REGISTRY_HTTP_ADDR=0.0.0.0:443
+  allconfig-registry-ui:
+    image: parabuzzle/craneoperator:latest
+    ports:
+      - "80:80"
+    environment:
+      - REGISTRY_HOST=allconfig-registry
+      - REGISTRY_PORT=443
+      - REGISTRY_PROTOCOL=http
+      - SSL_VERIFY=false
+      - USERNAME=allconfig
+      - PASSWORD=allconfig
+    restart: always
+    depends_on:
+    - allconfig-registry
